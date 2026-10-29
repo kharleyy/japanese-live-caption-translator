@@ -13,7 +13,7 @@
 - 调用 OpenAI 兼容 API 翻译稳定片段，默认使用 DeepSeek。
 - 在置顶悬浮窗中显示日文原文和中文翻译。
 - 支持暂停翻译、清空当前上下文、查看当天的请求与 Token 统计。
-- 提供仅绑定本机 `127.0.0.1` 的历史页面，可查看和删除指定日期的记录。
+- 提供仅绑定本机 `127.0.0.1` 的历史页面，可在http://127.0.0.1:8765/查看和删除指定日期的记录。
 - 自动保存字幕历史到本地 SQLite，关闭程序后可以再次打开。
 
 ## 使用要求
@@ -213,19 +213,6 @@ python -m venv .venv
 Copy-Item .env.example .env
 notepad .env
 .\.venv\Scripts\python.exe main.py
-```
-
-运行测试：
-
-```powershell
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-```
-
-提交或分享前检查密钥：
-
-```powershell
-.\.venv\Scripts\python.exe tools\check_secrets.py
-git status
 ```
 
 ## 项目结构
