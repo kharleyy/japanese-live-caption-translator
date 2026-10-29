@@ -30,7 +30,8 @@
 程序的音频识别由 Windows 实时辅助字幕完成，因此系统中需要能够正常显示日文字幕。
 
 ## 首次使用
-
+## 再次注意 Windows“实时辅助字幕”功能可用（win+ctrl+L能跳出来实时字幕）。
+## 在实时字幕里安装日语语音识别语言包。
 ### 1. 安装 Python
 
 从 [Python 官方网站](https://www.python.org/downloads/windows/)安装 Python 3.12 或更高版本。
