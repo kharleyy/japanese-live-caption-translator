@@ -4,7 +4,7 @@
 
 项目默认使用 DeepSeek：不改配置时，API 地址是 `https://api.deepseek.com`，模型是 `deepseek-chat`。也可以切换到其他 OpenAI 兼容服务。
 
-项目不会直接录制扬声器音频，也不使用截图或 OCR。字幕来源是 Windows 实时字幕通过 UI Automation 暴露的文本。
+项目不会直接录制扬声器音频，也不使用截图或 OCR。字幕来源是 Windows 实时字幕通过 UI Automation 暴露的文本。因此占用很小，是个轻量化翻译插件。
 
 ## 主要功能
 
