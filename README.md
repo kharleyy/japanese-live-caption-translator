@@ -9,12 +9,30 @@
 ## 主要功能
 
 - 自动启动 Windows 实时辅助字幕，并尝试切换到“日语（日本）”。
+
 - 持续读取字幕，等待内容稳定后按句分段。
+
 - 调用 OpenAI 兼容 API 翻译稳定片段，默认使用 DeepSeek。
+
 - 在置顶悬浮窗中显示日文原文和中文翻译。
+
 - 支持暂停翻译、清空当前上下文、查看当天的请求与 Token 统计。
+
 - 提供仅绑定本机 `127.0.0.1` 的历史页面，可在http://127.0.0.1:8765/查看和删除指定日期的记录。
+
 - 自动保存字幕历史到本地 SQLite，关闭程序后可以再次打开。
+
+  
+
+  ## 历史页面
+
+![项目预览](assets/历史页面.png)
+
+## 翻译字幕
+
+![项目预览](assets/翻译字幕.png)
+
+
 
 ## 使用要求
 
@@ -30,8 +48,7 @@
 程序的音频识别由 Windows 实时辅助字幕完成，因此系统中需要能够正常显示日文字幕。
 
 ## 首次使用
-## 再次注意 Windows“实时辅助字幕”功能可用（win+ctrl+L能跳出来实时字幕）。
-## 在实时字幕里安装日语语音识别语言包。
+## 再次注意 1.Windows“实时辅助字幕”功能可用（win+ctrl+L能跳出来实时字幕）2.在实时字幕里安装日语语音识别语言包。
 ### 1. 安装 Python
 
 从 [Python 官方网站](https://www.python.org/downloads/windows/)安装 Python 3.12 或更高版本。
@@ -79,7 +96,7 @@ API_KEY=
 
 保存并关闭 Notepad 后，程序会继续启动。
 
-默认配置使用的 API Key 可以在 DeepSeek 开放平台控制台中创建。使用其他兼容服务时，请填写对应平台提供的密钥。不要把 `.env` 发给别人，也不要把真实密钥写进 README、截图、聊天记录或提交到 GitHub。
+默认配置使用的 API Key 可以在 DeepSeek 开放平台控制台中创建。使用其他兼容服务时，请填写对应平台提供的密钥。
 
 ### 4. 启动 Windows 实时字幕
 
@@ -119,22 +136,11 @@ http://127.0.0.1:8765/
 
 该服务只绑定本机回环地址，不会向局域网或互联网开放。
 
+### 如果感觉翻译速度较慢可修改.env文件中的FINAL_DEBOUNCE_MS，默认为1500，可是适当降低，但对token消耗会变大。
+
 ## 配置项
 
-本地配置位于根目录的 `.env`。它不会被提交到 Git。
-
-| 配置项 | 默认值 | 说明 |
-| --- | --- | --- |
-| `API_KEY` | 空 | 必填，服务商提供的 API 密钥 |
-| `API_BASE_URL` | `https://api.deepseek.com` | OpenAI 兼容 API 根地址 |
-| `API_MODEL` | `deepseek-chat` | 翻译使用的模型 |
-| `API_TIMEOUT_SECONDS` | `30` | 单次请求超时时间 |
-| `API_MAX_OUTPUT_TOKENS` | `512` | 单次翻译的最大输出 Token |
-| `API_INPUT_PRICE_PER_MILLION` | `0` | 每百万输入 Token 的价格 |
-| `API_OUTPUT_PRICE_PER_MILLION` | `0` | 每百万输出 Token 的价格 |
-| `FINAL_DEBOUNCE_MS` | `1500` | 当前句停止变化多久后视为稳定 |
-| `TRANSLATION_RETRY_SECONDS` | `5,15,60,300` | 临时网络错误的退避重试时间 |
-| `HISTORY_PORT` | `8765` | 本地历史页面端口 |
+本地配置位于根目录的 `.env`。
 
 `API_BASE_URL` 不要包含最后的 `/chat/completions`，程序会自行拼接。例如：
 
