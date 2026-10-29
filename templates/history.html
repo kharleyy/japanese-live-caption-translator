@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>实时日语字幕历史</title>
+  <link rel="stylesheet" href="/static/history.css">
+  <script src="/static/history.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">本机历史记录</p>
+        <h1>实时日语字幕历史</h1>
+        <p class="lede">按日期查看当天全部会话。页面只绑定本机回环地址。</p>
+      </div>
+      <a class="today-link" href="/">查看今天</a>
+    </header>
+
+    <form class="date-filter" method="get" action="/">
+      <label for="date">选择日期</label>
+      <input id="date" name="date" type="date" value="__DATE__" required>
+      <button type="submit">查看</button>
+    </form>
+
+    <p class="__NOTICE_CLASS__" role="status">__NOTICE__</p>
+    __CONTENT__
+
+    <section class="danger-zone">
+      <h2>删除当天记录</h2>
+      <p>只删除所选业务日期下的全部会话和字幕，不影响其他日期。</p>
+      <form id="delete-form" method="post" action="/delete-day">
+        <input type="hidden" name="csrf_token" value="__CSRF_TOKEN__">
+        <input type="hidden" name="date" value="__DATE__">
+        <label for="confirm_date">再输入一次 <strong>__DATE__</strong> 以确认</label>
+        <div class="delete-row">
+          <input
+            id="confirm_date"
+            name="confirm_date"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+            placeholder="__DATE__"
+            required
+          >
+          <button class="danger" type="submit" __DELETE_DISABLED__>永久删除当天记录</button>
+        </div>
+      </form>
+    </section>
+
+    <footer>
+      <p>服务仅监听 127.0.0.1。页面生成时间：__GENERATED_AT__</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "realtime-translator"
+version = "0.3.0"
+description = "Local Japanese live-caption capture and translation for Windows 11"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "psutil>=5.9,<8",
+    "uiautomation>=2.0.29,<3",
+]
+
+[project.scripts]
+rt-app = "realtime_translator.application:main"
+rt-uia-probe = "realtime_translator.uia_probe:main"
+rt-translate-worker = "realtime_translator.translation_worker:main"
+rt-overlay = "realtime_translator.overlay:main"
+rt-history = "realtime_translator.history_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
