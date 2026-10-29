@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title Realtime Japanese Caption Translator
+title Japanese Live Caption Translator
 
 set "PROJECT_DIR=%~dp0"
 set "PYTHON_EXE=%PROJECT_DIR%.venv\Scripts\python.exe"
@@ -27,38 +27,19 @@ if not exist "%PROJECT_DIR%requirements.txt" (
     exit /b 2
 )
 
-if not exist "%PYTHON_EXE%" (
-    set "BOOTSTRAP_PYTHON="
+if exist "%PYTHON_EXE%" goto venv_ready
 
-    py -3.12 -c "import sys" >nul 2>&1
-    if not errorlevel 1 set "BOOTSTRAP_PYTHON=py -3.12"
+call :find_bootstrap_python
+if errorlevel 1 goto python_not_found
 
-    if not defined BOOTSTRAP_PYTHON (
-        py -3 -c "import sys; raise SystemExit(0 if sys.version_info >= (3, 12) else 1)" >nul 2>&1
-        if not errorlevel 1 set "BOOTSTRAP_PYTHON=py -3"
-    )
+echo First-time setup: creating the project virtual environment...
+%BOOTSTRAP_PYTHON% -m venv "%PROJECT_DIR%.venv"
+if errorlevel 1 goto setup_failed
 
-    if not defined BOOTSTRAP_PYTHON (
-        python -c "import sys; raise SystemExit(0 if sys.version_info >= (3, 12) else 1)" >nul 2>&1
-        if not errorlevel 1 set "BOOTSTRAP_PYTHON=python"
-    )
+if not exist "%PYTHON_EXE%" goto setup_failed
 
-    if not defined BOOTSTRAP_PYTHON (
-        echo Python 3.12 or newer was not found.
-        echo.
-        echo Install Python 3.12 from https://www.python.org/downloads/windows/
-        echo During installation, enable "Add python.exe to PATH", then try again.
-        echo.
-        pause
-        exit /b 2
-    )
-
-    echo First-time setup: creating the project virtual environment...
-    %BOOTSTRAP_PYTHON% -m venv "%PROJECT_DIR%.venv"
-    if errorlevel 1 goto setup_failed
-
-    if not exist "%PYTHON_EXE%" goto setup_failed
-)
+:venv_ready
+set "PYTHONPATH=%PROJECT_DIR%src;%PYTHONPATH%"
 
 if not exist "%INSTALL_MARKER%" (
     echo First-time setup: installing project dependencies...
@@ -99,6 +80,38 @@ echo.
 echo First-time setup failed.
 echo Check the network connection and Python installation, then try again.
 echo If the problem continues, delete the .venv directory and rerun this file.
+echo.
+pause
+exit /b 2
+
+:find_bootstrap_python
+set "BOOTSTRAP_PYTHON="
+
+py -3.12 -c "import sys" >nul 2>&1
+if not errorlevel 1 (
+    set "BOOTSTRAP_PYTHON=py -3.12"
+    exit /b 0
+)
+
+py -3 -c "import sys; raise SystemExit(0 if sys.version_info >= (3, 12) else 1)" >nul 2>&1
+if not errorlevel 1 (
+    set "BOOTSTRAP_PYTHON=py -3"
+    exit /b 0
+)
+
+python -c "import sys; raise SystemExit(0 if sys.version_info >= (3, 12) else 1)" >nul 2>&1
+if not errorlevel 1 (
+    set "BOOTSTRAP_PYTHON=python"
+    exit /b 0
+)
+
+exit /b 1
+
+:python_not_found
+echo Python 3.12 or newer was not found.
+echo.
+echo Install Python 3.12 from https://www.python.org/downloads/windows/
+echo During installation, enable "Add python.exe to PATH", then try again.
 echo.
 pause
 exit /b 2

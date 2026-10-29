@@ -1,4 +1,4 @@
-# 实时日语字幕翻译
+# Japanese Live Caption Translator
 
 这是一个运行在 Windows 11 上的本地实时字幕翻译工具。它读取 Windows“实时辅助字幕”中显示的日语文本，通过 OpenAI 兼容接口翻译成中文，并在桌面上显示可拖动的置顶双语悬浮窗。
 
@@ -52,7 +52,7 @@ python --version
 直接双击项目根目录的：
 
 ```text
-启动实时翻译.cmd
+start-live-caption-translator.cmd
 ```
 
 第一次启动时，脚本会自动：
@@ -96,7 +96,7 @@ API_KEY=
 
 环境安装完成后，通常只需要：
 
-1. 双击 `启动实时翻译.cmd`。
+1. 双击 `start-live-caption-translator.cmd`。
 2. 播放日语音频。
 3. 查看屏幕上的双语悬浮窗。
 
@@ -176,7 +176,7 @@ API_MODEL=服务商提供的模型名称
 
 ### 首次安装依赖失败
 
-检查网络连接、代理或 pip 镜像配置。修复网络后重新双击脚本。如果虚拟环境已经损坏，可以删除 `.venv` 目录，再运行 `启动实时翻译.cmd` 重新安装。
+检查网络连接、代理或 pip 镜像配置。修复网络后重新双击脚本。如果虚拟环境已经损坏，可以删除 `.venv` 目录，再运行 `start-live-caption-translator.cmd` 重新安装。
 
 ### 提示 `API_KEY is missing`
 
@@ -230,7 +230,8 @@ git status
 ## 项目结构
 
 ```text
-启动实时翻译.cmd      首次安装和日常启动入口
+start-live-caption-translator.cmd
+                      首次安装和日常启动入口
 main.py               应用入口
 src/realtime_translator/
   application.py      启动、进程管理和整体生命周期
