@@ -57,9 +57,9 @@ if not exist "%ENV_FILE%" (
     )
 
     copy /y "%ENV_TEMPLATE%" "%ENV_FILE%" >nul
-    echo 已从 .env.example 创建本地 .env 文件。
-    echo 使用 DeepSeek 时，只需填写 API_KEY，保存并关闭 Notepad 即可。
-    echo 使用其他 OpenAI 兼容模型时，请同时修改 .env 中的 API_BASE_URL 和 API_MODEL。
+    echo Created local .env from .env.example.
+    echo For DeepSeek: fill in API_KEY, save, and close Notepad.
+    echo For other OpenAI-compatible models: also set API_BASE_URL and API_MODEL in .env.
     start "" /wait notepad "%ENV_FILE%"
 )
 
