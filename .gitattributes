@@ -1,0 +1,21 @@
+# Keep Windows batch scripts and scripting hosts on CRLF in the repository
+# itself, not only on checkout.
+#
+# Why "-text" rather than "text eol=crlf":
+#   "text eol=crlf" only converts on checkout, so the blob stays LF. Anything
+#   that consumes the blob directly - "Download ZIP", `git archive` - still
+#   yields a broken file.
+#   "-text" tells git to store the file verbatim, so the CRLF committed here is
+#   what everyone gets, no matter how they obtain the repository.
+#
+# Why CRLF matters here:
+#   cmd.exe looks for CRLF to find line boundaries. With bare LF it splits lines
+#   mid-token, e.g. `chcp 65001` becomes `chcp 6` + `01`, producing
+#   '01' is not recognized as an internal or external command.
+#   This stays hidden on machines with core.autocrlf=true, which is exactly why
+#   it needs to be declared rather than left to each machine's config.
+*.cmd  -text
+*.bat  -text
+*.ps1  -text
+*.psm1 -text
+*.vbs  -text
